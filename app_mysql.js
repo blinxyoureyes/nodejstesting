@@ -1,4 +1,5 @@
 var mysql = require("mysql");
+var fs = require('fs');
 
 function ambiltime() {
     var date = new Date();
@@ -8,8 +9,16 @@ function ambiltime() {
     var hours = date.getHours();
     var minutes = date.getMinutes();
     var seconds = date.getSeconds();
-    console.log(+year+"-"+month+"-"+day+" "+hours+":"+minutes+":"+seconds);
+    var alltime = +year+"-"+month+"-"+day+" "+hours+":"+minutes+":"+seconds;
+    return alltime;
 }
+
+fs.writeFile("./logs/", "Hey there!", function(err) {
+    if(err) {
+        return console.log(err);
+    }
+    console.log("The file was saved!");
+});
 
 // First you need to create a connection to the db
 var con = mysql.createConnection({
@@ -27,9 +36,7 @@ con.connect(function(err){
     console.log('Connection established');
 });
 
-
-
-
+console.log("start query : "+ambiltime());
 
 con.query('SELECT * FROM tbl_user',function(err,rows){
     if(err) throw err;
