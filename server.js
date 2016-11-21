@@ -1,19 +1,19 @@
-var express = require('express');
-var app = express();
-var fs = require("fs");
 
-app.get('/listUsers', function (req, res) {
-    fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
-        console.log( data );
-        res.end( data );
-    });
-})
+var express    = require('express');        // call express
+var app        = express();                 // define our app using express
+var bodyParser = require('body-parser');
 
-var server = app.listen(8081, function () {
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-    var host = server.address().address
-    var port = server.address().port
+var port = process.env.PORT || 8000;        // set our port
+var router = express.Router();              // get an instance of the express Router
 
-    console.log("Example app listening at http://%s:%s", host, port)
+router.get('/', function(req, res) {
+    res.json({ message: 'hooray! welcome to our api!' });
+});
 
-})
+app.use('/api', router);
+
+app.listen(port);
+console.log('Magic happens on port ' + port);
