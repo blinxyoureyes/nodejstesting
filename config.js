@@ -1,44 +1,52 @@
-module.exports = {
+var mysql = require("mysql");
+var fs = require('fs');
 
-    con: function() {
-        var mysql = require("mysql");
-        var fs = require('fs');
-        var conn = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "",
-            database: "wap_poin"
-        });
-        conn.connect(function(err){
-            if(err){
-                console.log('Error connecting to Db');
-                return;
-            }
-            console.log('Connection established');
-        });
-        return;
-    },
+function showTime() {
+    var date = new Date();
+    var day = date.getDate();
+    var month = date.getMonth();
+    var year = date.getFullYear();
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var seconds = date.getSeconds();
+    var alltime = +year+"-"+month+"-"+day+" "+hours+":"+minutes+":"+seconds;
+    return alltime;
+}
 
-    writeLog: function (param) {
-        var fs = require('fs');
-        var stream = fs.createWriteStream("./logs/file.txt", {'flags': 'a'});
-        stream.once('open', function(fd) {
-            stream.write(param+"\n");
-            stream.end();
-        });
-    },
+function Conn() {
+    var connection = mysql.createConnection({
+        host     : 'localhost',
+        user     : 'root',
+        password : '',
+        database : 'wap_poin',
+    });
+    connection.connect(function(err) {
+        if (err) {
+            console.error('error connecting: ' + err.stack);
+            return;
+        }
+        console.log('connected as id ' + connection.threadId);
+    });
+    return;
+}
 
-    showtime: function () {
-        var date = new Date();
-        var day = date.getDate();
-        var month = date.getMonth();
-        var year = date.getFullYear();
-        var hours = date.getHours();
-        var minutes = date.getMinutes();
-        var seconds = date.getSeconds();
-        var alltime = +year+"-"+month+"-"+day+" "+hours+":"+minutes+":"+seconds;
-        return alltime;
-    }
+module.exports.conn = Conn();
+module.exports.showtime = showTime();
+module.exports.writeLog = function (param) {
+    var fs = require('fs');
+    var stream = fs.createWriteStream("./logs/file.txt", {'flags': 'a'});
+    stream.once('open', function(fd) {
+        stream.write(param+"\n");
+        stream.end();
+    });
+}
 
-};
+// module.exports = function(param) {
+//
+//
+//     showtime: function () {
+//
+//     }
+//
+// };
 
