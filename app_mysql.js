@@ -5,10 +5,10 @@ conf.writeLog("start query : "+conf.showtime);
 
 var query = 'SELECT * FROM tbl_user';
 
-var r = conn.dbconn(query, function(result) {
-    if (result !== '') {
-        console.log( 'Data result : ' + result);
-    }
+var r = conn.dataquery(query, function(result) {
+    result.forEach(function (hasil) {
+        console.log('Data result : ' + hasil.username);
+    });
 });
 
 // conn.query('SELECT * FROM tbl_user',function(err,rows){

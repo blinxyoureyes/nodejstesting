@@ -5,7 +5,7 @@ var connection = mysql.createConnection({
     password : '',
     database : 'wap_poin',
 });
-module.exports.dbconn = function(queryString, callback) {
+module.exports.dataquery = function(queryString, callback) {
     try {
         connection.connect();
         console.log('Step 1');
@@ -25,15 +25,16 @@ module.exports.dbconn = function(queryString, callback) {
         connection.query(queryString,function(err,rows){
             if(err) throw err;
             console.log('Data received from Db:\n');
-            rows.forEach(function (value) {
-                console.log('value = ');
-                console.log(value);
-            });
-                
+            // rows.forEach(function (value) {
+                // console.log('value = '+value);
+                // console.log(value);
 
-            // console.log(rows[0].username);
-            // callback(rows[0].username);
-            // return rows[0].username;
+                // console.log(rows[0].username);
+
+                // return rows[0].username;
+            // });
+            callback(rows);
+            return rows;
         });
         callback();
 

@@ -1,4 +1,3 @@
-
 var fs = require('fs');
 
 function showTime() {
@@ -13,12 +12,6 @@ function showTime() {
     return alltime;
 }
 
-
-
-
-
-
-
 module.exports.showtime = showTime();
 module.exports.writeLog = function (param) {
     var fs = require('fs');
@@ -29,12 +22,4 @@ module.exports.writeLog = function (param) {
     });
 }
 
-// module.exports = function(param) {
-//
-//
-//     showtime: function () {
-//
-//     }
-//
-// };
 
