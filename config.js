@@ -1,4 +1,4 @@
-var mysql = require("mysql");
+
 var fs = require('fs');
 
 function showTime() {
@@ -13,24 +13,12 @@ function showTime() {
     return alltime;
 }
 
-function Conn() {
-    var connection = mysql.createConnection({
-        host     : 'localhost',
-        user     : 'root',
-        password : '',
-        database : 'wap_poin',
-    });
-    connection.connect(function(err) {
-        if (err) {
-            console.error('error connecting: ' + err.stack);
-            return;
-        }
-        console.log('connected as id ' + connection.threadId);
-    });
-    return;
-}
 
-module.exports.conn = Conn();
+
+
+
+
+
 module.exports.showtime = showTime();
 module.exports.writeLog = function (param) {
     var fs = require('fs');
