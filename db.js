@@ -10,29 +10,10 @@ module.exports.dataquery = function(queryString, callback) {
         connection.connect();
         console.log('Step 1');
 
-        // connection.query(queryString, function(err, rows, fields) {
-        //     console.log('Step 2');
-        //     if (err) {
-        //         console.log("ERROR : " + err);
-        //     }
-        //     console.log('The solution is: ', rows[0].solution);
-        //
-        //     callback(rows[0].solution);
-        //
-        //     return rows[0].solution;
-        // });
-
         connection.query(queryString,function(err,rows){
+            console.log('Step 2');
             if(err) throw err;
             console.log('Data received from Db:\n');
-            // rows.forEach(function (value) {
-                // console.log('value = '+value);
-                // console.log(value);
-
-                // console.log(rows[0].username);
-
-                // return rows[0].username;
-            // });
             callback(rows);
             return rows;
         });
