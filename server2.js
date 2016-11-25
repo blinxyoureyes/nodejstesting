@@ -13,22 +13,27 @@ var http = require('http'),
 app.get('/', function(req, res) {
     var user = req.query.username;
     var pass = req.query.password;
-    var appndParams = 'username='+user+' - password='+pass;
-    conf.writeLog("["+conf.showtime+"] Param Request : "+appndParams);
 
-    // connect & select to database
-    var query = "SELECT * FROM tbl_user WHERE username='"+user+"'";
-    var arrpush = [];
-    var r = conn.dataquery(query, function(result) {
-        result.forEach(function (hasil) {
-            console.log(hasil);
-            var arrGet = 'Data result : ' + hasil.username;
-            arrpush.push(arrGet);
-            console.log(arrGet);
+    if (user !== "" && pass !== "") {
+        var appndParams = 'username='+user+' - password='+pass;
+        conf.writeLog("["+conf.showtime+"] Param Request : "+appndParams);
+
+        // connect & select to database
+        var query = "SELECT * FROM tbl_user WHERE username='"+user+"'";
+        var arrpush = [];
+        conn.dataquery(query, function(result) {
+            result.forEach(function (hasil) {
+                // console.log(hasil);
+                var arrGet = 'Data result : ' + hasil.username;
+                arrpush.push(arrGet);
+                // console.log(arrGet);
+            });
+            // console.log(arrpush);
+            conf.writeLog("end query : "+arrpush+" "+conf.showtime);
         });
-        console.log(arrpush);
-        conf.writeLog("end query : "+arrpush+" "+conf.showtime);
-    });
+    } else {
+        conf.writeLog("["+conf.showtime+"] parameter is empty");
+    }
 
     // print result
     res.send('username='+user+'\npassword='+pass);
