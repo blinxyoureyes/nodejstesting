@@ -18,8 +18,8 @@ app.get('/', function(req, res) {
 
     // connect & select to database
     var query = 'SELECT * FROM tbl_user';
+    var arrpush = [];
     var r = conn.dataquery(query, function(result) {
-        var arrpush = [];
         result.forEach(function (hasil) {
             var arrGet = 'Data result : ' + hasil.username;
             arrpush.push(arrGet);
