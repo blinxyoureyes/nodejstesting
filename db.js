@@ -8,10 +8,10 @@ var connection = mysql.createConnection({
 module.exports.dataquery = function(queryString, callback) {
     try {
         connection.connect();
-        console.log('Step 1');
+        // console.log('Step 1');
 
         connection.query(queryString,function(err,rows){
-            console.log('Step 2');
+            // console.log('Step 2');
             if(err) throw err;
             console.log('Data received from Db:\n');
             callback(rows);
@@ -21,8 +21,7 @@ module.exports.dataquery = function(queryString, callback) {
 
         connection.end();
         console.log('Step 3');
-    }
-    catch(ex) {
-        console.log("EXCEPTION : " + ex);
+    } catch(err) {
+        // console.log("EXCEPTION : " + err);
     }
 };

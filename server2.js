@@ -10,7 +10,8 @@ var http = require('http'),
     conf = require("./config.js");
 
 // routes will go here
-app.get('/', function(req, res) {
+app.get('/selectUser', function(req, res) {
+    console.log(JSON.stringify(req.headers));
     var user = req.query.username;
     var pass = req.query.password;
 
@@ -19,24 +20,26 @@ app.get('/', function(req, res) {
         conf.writeLog("["+conf.showtime+"] Param Request : "+appndParams);
 
         // connect & select to database
-        var query = "SELECT * FROM tbl_user WHERE username='"+user+"'";
+        var query = "SELECT * FROM tbl_user";
         var arrpush = [];
         conn.dataquery(query, function(result) {
             result.forEach(function (hasil) {
-                // console.log(hasil);
-                var arrGet = 'Data result : ' + hasil.username;
-                arrpush.push(arrGet);
-                // console.log(arrGet);
+                var jsonArg1 = new Object();
+                // data[0] = {"username" : hasil.username,"password" : hasil.password};
+                jsonArg1.username = hasil.username;
+                jsonArg1.password = hasil.password;
+                arrpush.push(jsonArg1);
             });
-            // console.log(arrpush);
-            conf.writeLog("end query : "+arrpush+" "+conf.showtime);
+            res.contentType('application/json');
+            res.send(JSON.stringify(arrpush));
         });
     } else {
         conf.writeLog("["+conf.showtime+"] parameter is empty");
     }
 
     // print result
-    res.send('username='+user+'\npassword='+pass);
+    // res.send('username='+arrpush['username']+'\npassword='+arrpush['password']);
+    // res.send(JSON.stringify(arrpush));
 });
 
 // start the server
