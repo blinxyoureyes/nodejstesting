@@ -13,14 +13,14 @@ module.exports.dataquery = function(queryString, callback) {
         connection.query(queryString,function(err,rows){
             // console.log('Step 2');
             if(err) throw err;
-            console.log('Data received from Db:\n');
+            // console.log('Data received from Db:\n');
             callback(rows);
             return rows;
         });
         callback();
 
         connection.end();
-        console.log('Step 3');
+        // console.log('Step 3');
     } catch(err) {
         // console.log("EXCEPTION : " + err);
     }

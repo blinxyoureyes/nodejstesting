@@ -25,7 +25,6 @@ app.get('/selectUser', function(req, res) {
         conn.dataquery(query, function(result) {
             result.forEach(function (hasil) {
                 var jsonArg1 = new Object();
-                // data[0] = {"username" : hasil.username,"password" : hasil.password};
                 jsonArg1.username = hasil.username;
                 jsonArg1.password = hasil.password;
                 arrpush.push(jsonArg1);
